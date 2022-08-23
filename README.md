@@ -1,7 +1,6 @@
 <pre><h1 align="center">Hey 👋, I'm @ThatZacman</h1></pre>
 <h3 align="center">A backend engineer who also loves scuba diving 🤿🐠</h3>
 
-- 🔭 I’m currently working on [Nervecentre - A concept backend project built with Spring Boot and JPA/Hibernate](https://github.com/ThatZacman/nervecentre)
 
 <p align="left">
 </p>
