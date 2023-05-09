@@ -1,10 +1,15 @@
+import json
 import os
-import sys
+import time
 
-if __name__ == '__main__':
-    input_file = sys.argv[0]
-    filename = os.path.basename(input_file)
-    print(f"Processing {filename}")
-    
-    with open('output.txt', 'w') as f:
-        f.write(filename)
+input_file = os.environ.get('INPUT_FILE')
+
+with open(input_file, 'r') as f:
+    data = json.load(f)
+    print(f"Processing {input_file}...")
+    print(f"Data: {data}")
+    print("Creating output.txt file...")
+    timestamp = time.strftime("%Y%m%d-%H%M%S")
+    with open(f"output_{timestamp}.txt", "w") as outfile:
+        outfile.write(f"Data: {data}\n")
+    print("Done!")
