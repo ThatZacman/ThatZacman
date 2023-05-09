@@ -1,18 +1,22 @@
-import argparse
 import json
 import os
 import time
 
-parser = argparse.ArgumentParser()
-parser.add_argument("input_file", help="path to the input file")
-args = parser.parse_args()
+input_file = os.environ.get('INPUT_FILE')
 
-with open(args.input_file, 'r') as f:
-    data = json.load(f)
-    print(f"Processing {args.input_file}...")
-    print(f"Data: {data}")
-    print("Creating output.txt file...")
-    timestamp = time.strftime("%Y%m%d-%H%M%S")
-    with open(f"output_{timestamp}.txt", "w") as outfile:
+print(f"Input file: {input_file}")
+if input_file:
+    with open(input_file, 'r') as f:
+        data = json.load(f)
+        print(f"Processing {input_file}...")
+else:
+    print("No input file found.")
+
+print("Creating output.txt file...")
+timestamp = time.strftime("%Y%m%d-%H%M%S")
+with open(f"output_{timestamp}.txt", "w") as outfile:
+    if input_file:
         outfile.write(f"Data: {data}\n")
-    print("Done!")
+    else:
+        outfile.write("No input file found.\n")
+print("Done!")
