@@ -1,4 +1,4 @@
-name: Python Workflow
+name: Franklin Workflow
 
 on:
   push:
@@ -30,22 +30,18 @@ jobs:
           python main.py ${GITHUB_WORKSPACE}/${{ steps.changed-files.outputs.files }}
         env:
           GITHUB_WORKSPACE: ${{ github.workspace }}
-
-      - name: Create artifact
-        uses: actions/upload-artifact@v2
-        with:
-          name: output
-          path: ${{ github.workspace }}/output.txt
       
       - name: Display artifact path
         run: |
           echo "Artifact path: ${{ github.workspace }}/output.txt"
       
-      - name: Print output
-        run: |
-          cat ${{ github.workspace }}/output.txt
-      
       - name: Set output variable
         id: output
         run: |
-          echo "MY_OUTPUT_VAR=$(echo ${{ github.workspace }}/output.txt)" >> $GITHUB_ENV
+          echo "MY_OUTPUT_VAR=$(echo ${{ github.workspace }}/output*.txt)" >> $GITHUB_ENV
+      
+      - name: Upload artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: output
+          path: ${{ env.MY_OUTPUT_VAR }}
