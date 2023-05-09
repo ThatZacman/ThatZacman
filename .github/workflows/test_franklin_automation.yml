@@ -28,10 +28,14 @@ jobs:
             *.py
             *.json
       
+      - name: Create output file
+        run: |
+          touch output.txt
+      
       - name: Run script
         run: |
           source .venv/bin/activate
-          python main.py ${GITHUB_WORKSPACE}/${{ steps.changed-files.outputs.files }}
+          python main.py ${GITHUB_WORKSPACE}/${{ steps.changed-files.outputs.files }} > output.txt
         env:
           GITHUB_WORKSPACE: ${{ github.workspace }}
       
