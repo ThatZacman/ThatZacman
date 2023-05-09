@@ -30,6 +30,12 @@ jobs:
           python main.py ${GITHUB_WORKSPACE}/${{ steps.changed-files.outputs.files }}
         env:
           GITHUB_WORKSPACE: ${{ github.workspace }}
+
+      - name: Create artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: output
+          path: ${{ github.workspace }}/output.txt
       
       - name: Display artifact path
         run: |
