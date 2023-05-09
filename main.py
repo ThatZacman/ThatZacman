@@ -4,6 +4,7 @@ import time
 
 input_file = os.environ.get('INPUT_FILE')
 
+print(f"Input file: {input_file}")
 if input_file:
     with open(input_file, 'r') as f:
         data = json.load(f)
