@@ -1,4 +1,4 @@
-name: New Franklin Workflow
+name: Python Workflow
 
 on:
   push:
@@ -27,25 +27,23 @@ jobs:
       - name: Run script
         run: |
           source .venv/bin/activate
-          python main.py ${{ github.workspace }}/${{ steps.changed-files.outputs.files }}
+          python main.py ${GITHUB_WORKSPACE}/${{ steps.changed-files.outputs.files }}
         env:
           GITHUB_WORKSPACE: ${{ github.workspace }}
-      
-      - name: Display artifact path
-        run: |
-          echo "Artifact path: ${{ github.workspace }}/output.txt"
       
       - name: Print output
         run: |
           cat ${{ github.workspace }}/output.txt
+        if: success() && steps.create-output-file.outputs.file-created == 'true'
       
-      - name: Set output variable
-        id: output
-        run: |
-          echo "MY_OUTPUT_VAR=$(echo ${{ github.workspace }}/output.txt)" >> $GITHUB_ENV
-      
-      - name: Upload artifact
+      - name: Create artifact
+        if: success() && steps.create-output-file.outputs.file-created == 'true'
         uses: actions/upload-artifact@v2
         with:
-          name: output
-          path: ${{ github.workspace }}/output.txt
+          name: my-artifact
+          path: ${{ github.workspace }}/output_*.txt
+      
+      - name: Set output variable
+        id: create-output-file
+        run: |
+          if [ -f ${{ github.workspace }}/output.txt ]; then echo "FILE_CREATED=true" >> $GITHUB_ENV; else echo "FILE_CREATED=false" >> $GITHUB_ENV; fi
