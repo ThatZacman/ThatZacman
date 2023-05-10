@@ -25,6 +25,7 @@ jobs:
         run: echo ::set-output name=files::$(git diff --name-only HEAD~1)
 
       - name: Run script
+        id: run-script
         run: |
           source .venv/bin/activate
           python main.py ${GITHUB_WORKSPACE}/${{ steps.changed-files.outputs.files }}
@@ -36,7 +37,8 @@ jobs:
           cat ${{ github.workspace }}/output.txt
       
       - name: Create artifact
+        if: success() && steps.run-script.outputs.file-created == 'true'
         uses: actions/upload-artifact@v2
         with:
           name: my-artifact
-          path: ${{ github.workspace }}/output.txt
+          path: ${{ github.workspace }}/output_*.txt
