@@ -1,14 +1,15 @@
 import json
 import os
 import time
-
 import argparse
 
 parser = argparse.ArgumentParser()
 parser.add_argument("--input-file", required=True, help="Path to the input file")
+parser.add_argument("--output-path", required=True, help="Path to save the output file")
 args = parser.parse_args()
 
 input_file = args.input_file
+output_path = args.output_path
 
 print(f"Input file: {input_file}")
 if input_file:
@@ -18,9 +19,9 @@ if input_file:
 else:
     print("No input file found.")
 
-print("Creating output.txt file...")
+print(f"Creating output file: {output_path}")
 timestamp = time.strftime("%Y%m%d-%H%M%S")
-with open(f"output_{timestamp}.txt", "w") as outfile:
+with open(output_path, "w") as outfile:
     if input_file:
         outfile.write(f"Data: {data}\n")
     else:
