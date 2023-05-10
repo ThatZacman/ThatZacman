@@ -20,10 +20,13 @@ else:
 
 print("Creating output.txt file...")
 timestamp = time.strftime("%Y%m%d-%H%M%S")
-with open(f"output_{timestamp}.txt", "w") as outfile:
+output_file = f"output_{timestamp}.txt"
+with open(output_file, "w") as outfile:
     if input_file:
         outfile.write(f"Data: {data}\n")
-        outfile.write("Output content\n")
     else:
         outfile.write("No input file found.\n")
 print("Done!")
+
+# Output the file path so it can be captured by the YAML workflow
+print(f"Output file: {output_file}")
