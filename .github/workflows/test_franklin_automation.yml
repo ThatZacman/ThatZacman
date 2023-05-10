@@ -40,10 +40,8 @@ jobs:
       - name: Print output
         run: |
           cat ${{ github.workspace }}/output.txt
-        if: success() && steps.create-output-file.outputs.file-created == 'true'
 
       - name: Create artifact
-        if: success() && steps.create-output-file.outputs.file-created == 'true'
         uses: actions/upload-artifact@v2
         with:
           name: my-artifact
