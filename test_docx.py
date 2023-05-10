@@ -1,5 +1,6 @@
 import argparse
 from docx import Document
+import json
 
 def create_doc(args):
     parser = argparse.ArgumentParser()
@@ -7,9 +8,20 @@ def create_doc(args):
     parser.add_argument("--output-file", required=True, help="Path to save the output document")
     args = parser.parse_args(args)
 
-    # Your code to create the Word document goes here
+    # Load data from JSON file
+    with open(args.input_file, 'r') as f:
+        data = json.load(f)
+
+    # Extract values from JSON data
+    name = data.get('name')
+    age = data.get('age')
+    email = data.get('email')
+
+    # Create the Word document
     doc = Document()
-    doc.add_paragraph("Hello, World!")
+    doc.add_paragraph(f"Name: {name}")
+    doc.add_paragraph(f"Age: {age}")
+    doc.add_paragraph(f"Email: {email}")
     
     return doc
 
