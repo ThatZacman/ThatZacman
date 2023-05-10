@@ -28,7 +28,7 @@ jobs:
         id: run-script
         run: |
           source .venv/bin/activate
-          python main.py ${GITHUB_WORKSPACE}/${{ steps.changed-files.outputs.files }}
+          python main.py --input-file "${GITHUB_WORKSPACE}/${{ steps.changed-files.outputs.files }}"
         env:
           GITHUB_WORKSPACE: ${{ github.workspace }}
       
