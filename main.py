@@ -1,7 +1,6 @@
 import json
 import os
 import time
-import sys
 
 import argparse
 
@@ -19,12 +18,12 @@ if input_file:
 else:
     print("No input file found.")
 
-# Prepare the content to be written to stdout
-output_content = ""
-if input_file:
-    output_content = f"Data: {data}\n"
-else:
-    output_content = "No input file found.\n"
-
-# Write the output content to stdout
-sys.stdout.write(output_content)
+print("Creating output.txt file...")
+timestamp = time.strftime("%Y%m%d-%H%M%S")
+output_file = f"output_{timestamp}.txt"
+with open(output_file, "w") as outfile:
+    if input_file:
+        outfile.write(f"Data: {data}\n")
+    else:
+        outfile.write("No input file found.\n")
+print("Done!")
