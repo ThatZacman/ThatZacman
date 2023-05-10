@@ -18,15 +18,15 @@ if input_file:
 else:
     print("No input file found.")
 
-print("Creating output.txt file...")
+artifact_dir = os.path.join(os.environ["GITHUB_WORKSPACE"], "artifacts")
+os.makedirs(artifact_dir, exist_ok=True)
+
+output_file = os.path.join(artifact_dir, "output.txt")
+print(f"Creating {output_file}...")
 timestamp = time.strftime("%Y%m%d-%H%M%S")
-output_file = f"output_{timestamp}.txt"
 with open(output_file, "w") as outfile:
     if input_file:
         outfile.write(f"Data: {data}\n")
     else:
         outfile.write("No input file found.\n")
 print("Done!")
-
-# Output the file path so it can be captured by the YAML workflow
-print(f"Output file: {output_file}")
