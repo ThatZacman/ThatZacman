@@ -26,6 +26,8 @@ jobs:
         id: run-script
         run: |
           python main.py --input-file ${{ github.workspace }}/${{ steps.changed-files.outputs.files }}
+        env:
+          GITHUB_WORKSPACE: ${{ github.workspace }}
 
       - name: Create artifact
         uses: actions/upload-artifact@v2
