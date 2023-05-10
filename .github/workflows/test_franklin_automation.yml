@@ -27,7 +27,7 @@ jobs:
       - name: Run script and create output file
         run: |
           source .venv/bin/activate
-          python test_docx.py --input-file="${{ steps.changed-files.outputs.files }}" --output-path="${{ github.workspace }}/document.docx"
+          python test_docx.py --input-file="${{ steps.changed-files.outputs.files }}" --output-file="${{ github.workspace }}/document.docx"
         env:
           GITHUB_WORKSPACE: ${{ github.workspace }}
       
