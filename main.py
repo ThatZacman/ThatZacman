@@ -1,6 +1,7 @@
 import json
 import os
 import time
+
 import argparse
 
 parser = argparse.ArgumentParser()
@@ -19,7 +20,7 @@ if input_file:
 else:
     print("No input file found.")
 
-print(f"Creating output file: {output_path}")
+print(f"Creating output file at {output_path}...")
 timestamp = time.strftime("%Y%m%d-%H%M%S")
 with open(output_path, "w") as outfile:
     if input_file:
