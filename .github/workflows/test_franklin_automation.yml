@@ -27,7 +27,7 @@ jobs:
       - name: Run script and create output file
         run: |
           source .venv/bin/activate
-          python main.py --input-file="${{ steps.changed-files.outputs.files }}" --output-path="${{ github.workspace }}/document.txt"
+          python main.py --input-file="${{ steps.changed-files.outputs.files }}" --output-path="${{ github.workspace }}/document.docx"
         env:
           GITHUB_WORKSPACE: ${{ github.workspace }}
       
@@ -39,4 +39,4 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: Created Document
-          path: ${{ github.workspace }}/document.txt
+          path: ${{ github.workspace }}/document.docx
