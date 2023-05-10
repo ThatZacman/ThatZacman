@@ -1,8 +1,13 @@
+import argparse
 import json
 import os
 import time
 
-input_file = os.environ.get('INPUT_FILE')
+parser = argparse.ArgumentParser()
+parser.add_argument('--input-file', help='Path to input file')
+args = parser.parse_args()
+
+input_file = args.input_file
 
 print(f"Input file: {input_file}")
 if input_file:
