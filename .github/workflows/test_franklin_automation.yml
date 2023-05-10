@@ -25,17 +25,17 @@ jobs:
         run: echo ::set-output name=files::$(git diff --name-only HEAD~1)
 
       - name: Run script
+        id: run-script
         run: |
           source .venv/bin/activate
           python main.py --input-file "${{ github.workspace }}/${{ steps.changed-files.outputs.files }}"
         env:
           GITHUB_WORKSPACE: ${{ github.workspace }}
 
-      - name: Create output file
-        id: create-output-file
+      - name: Save output to file
         run: |
           echo "Creating output.txt file..."
-          echo "Output content" > ${{ github.workspace }}/output.txt
+          echo "${{ steps.run-script.outputs.script-output }}" > ${{ github.workspace }}/output.txt
 
       - name: Print output
         run: |
