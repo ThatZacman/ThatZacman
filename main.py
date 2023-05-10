@@ -20,10 +20,10 @@ else:
 
 print("Creating output.txt file...")
 timestamp = time.strftime("%Y%m%d-%H%M%S")
-print(f"Timestamp: {timestamp}")
 with open(f"output_{timestamp}.txt", "w") as outfile:
     if input_file:
         outfile.write(f"Data: {data}\n")
+        outfile.write("Output content\n")
     else:
         outfile.write("No input file found.\n")
 print("Done!")
