@@ -20,8 +20,7 @@ else:
 
 print("Creating output.txt file...")
 timestamp = time.strftime("%Y%m%d-%H%M%S")
-output_file = f"output_{timestamp}.txt"
-with open(output_file, "w") as outfile:
+with open(f"output_{timestamp}.txt", "w") as outfile:
     if input_file:
         outfile.write(f"Data: {data}\n")
     else:
