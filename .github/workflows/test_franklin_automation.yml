@@ -14,35 +14,21 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Install dependencies
-        run: |
-          python -m venv .venv
-          source .venv/bin/activate
-          pip install -r requirements.txt
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.x
 
-      - name: Check changed files
-        id: changed-files
-        run: echo ::set-output name=files::$(git diff --name-only HEAD~1)
+      - name: Install dependencies
+        run: pip install -r requirements.txt
 
       - name: Run script
+        id: run-script
         run: |
-          source .venv/bin/activate
-          python main.py --input-file "${{ steps.changed-files.outputs.files }}"
-        env:
-          GITHUB_WORKSPACE: ${{ github.workspace }}
-
-      - name: Set output variable
-        id: set-output
-        run: |
-          echo "OUTPUT_FILE=${{ github.workspace }}/output.txt" >> $GITHUB_ENV
-
-      - name: Create output artifact
-        run: |
-          mv output.txt "${{ github.workspace }}/artifacts/output.txt"
-        if: success()
+          python main.py --input-file ${{ github.workspace }}/${{ steps.changed-files.outputs.files }}
 
       - name: Create artifact
         uses: actions/upload-artifact@v2
         with:
           name: my-artifact
-          path: ${{ env.OUTPUT_FILE }}
+          path: ${{ steps.run-script.outputs.stdout }}
