@@ -25,12 +25,12 @@ jobs:
       - name: Run script
         id: run-script
         run: |
-          python main.py --input-file="${{ steps.changed-files.outputs.files }}" > output.txt
+          python main.py --input-file="${{ steps.changed-files.outputs.files }}"
         env:
           GITHUB_WORKSPACE: ${{ github.workspace }}
 
-      - name: Create artifact
+      - name: Save output as artifact
         uses: actions/upload-artifact@v2
         with:
           name: my-artifact
-          path: ${{ steps.run-script.outputs.stdout }}
+          path: output.txt
